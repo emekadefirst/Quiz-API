@@ -22,13 +22,12 @@ class AttemptAdmin(admin.ModelAdmin):
 
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):
-    list_display = ('answer_id', 'question', 'answer_text', 'is_correct')
-    list_filter = ('question', 'is_correct')
+    list_display = ('answer_id', 'question_id', 'answer_text', 'is_correct')
+    list_filter = ('question_id', 'is_correct')
     search_fields = ('answer_text',)
 
 @admin.register(UserAnswer)
 class UserAnswerAdmin(admin.ModelAdmin):
-    list_display = ('user', 'question', 'answer', 'is_correct')
-    list_filter = ('user', 'question__quiz')
-    search_fields = ('user__username', 'question__question')
-
+    list_display = ('user_id', 'question_id', 'answer_id', 'is_correct')
+    list_filter = ('user_id', 'question_id__quiz')
+    search_fields = ('user__username', 'question_id__question')
