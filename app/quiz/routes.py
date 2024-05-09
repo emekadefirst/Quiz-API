@@ -5,5 +5,5 @@ from quiz.attempt.views import AttemptView
 from quiz.answer.views import AnswerView, UserAnswerView
 
 urlpatterns = [
-    path('admin/',),
+    path('questions', QuestionView.as_view(), name='question'),
 ]
