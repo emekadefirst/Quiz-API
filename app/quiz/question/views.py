@@ -15,7 +15,8 @@ class QuestionView(APIView):
         questions = Question.objects.all()
         user_id = request.user.id  # Assuming user ID is used as a unique identifier
         shuffled_questions = self.shuffle_questions(user_id, questions)
-        serializer = QuestionSerializer(shuffled_questions, many=True)
+        questions_subset = shuffled_questions[:35]  # Limiting to 35 questions
+        serializer = QuestionSerializer(questions_subset, many=True)
         return Response(serializer.data)
 
     def shuffle_questions(self, user_id, questions):
@@ -25,7 +26,8 @@ class QuestionView(APIView):
         random.seed(seed)
 
         # Shuffle the questions
-        shuffled_questions = random.sample(questions, len(questions))
+        shuffled_questions = list(questions)
+        random.shuffle(shuffled_questions)
 
         return shuffled_questions
 

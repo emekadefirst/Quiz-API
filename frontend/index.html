@@ -65,23 +65,10 @@
 <body>
     <h3>Quiz</h3>
     <div class="container">
-        <form action="">
-            <h4 class="question">
-                What is your name?
-            </h4>
+        <form id="quiz-form">
+            <h4 class="question"></h4>
             <div class="answer">
-                <label>
-                    <input type="radio" name="answer">
-                    <span>Answer 1</span>
-                </label>
-                <label>
-                    <input type="radio" name="answer">
-                    <span>Answer 2</span>
-                </label>
-                <label>
-                    <input type="radio" name="answer">
-                    <span>Answer 3</span>
-                </label>
+                <!-- Answers will be dynamically populated here -->
             </div>
         </form>
         <div class="mov-btn">
@@ -89,10 +76,36 @@
             <button type="button" class="btn btn-success next">Next</button>
         </div>
     </div>
-</body>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Fetch data from the endpoint
+            fetch('http://127.0.0.1:8000/question')
+                .then(response => response.json())
+                .then(data => {
+                    // Update question
+                    document.querySelector('.question').textContent = data.question;
+
+                    // Clear previous answers
+                    const answerContainer = document.querySelector('.answer');
+                    answerContainer.innerHTML = '';
+
+                    // Populate answers
+                    data.answers.forEach(answer => {
+                        const label = document.createElement('label');
+                        label.innerHTML = `
+                            <input type="radio" name="answer" value="${answer}">
+                            <span>${answer}</span>
+                        `;
+                        answerContainer.appendChild(label);
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+    </script>
+</body>
 
 </html>
