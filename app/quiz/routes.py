@@ -6,7 +6,7 @@ from quiz.auth.views import LoginUser, RegisterUser
 from quiz.answer.views import AnswerView, UserAnswerView
 
 urlpatterns = [
-    path('questions', QuestionView.as_view(), name='question'),
+    path('question', QuestionView.as_view(), name='question'),
     path('answer', AnswerView.as_view(), name='questionview'),
     path('user-answer', UserAnswerView.as_view(), name='useranswer'),
     path('attempt', AttemptView.as_view(), name='attempt'),    

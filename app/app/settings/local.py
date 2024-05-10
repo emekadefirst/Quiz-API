@@ -1,7 +1,7 @@
 from .base import *
 
-SECRET_KEY = os.environ.get("SECRET_KEY_LOCAL")
-
+# SECRET_KEY = os.environ.get("SECRET_KEY_LOCAL")
+SECRET_KEY = 'hbsbajba'
 ALLOWED_HOSTS = []
 
 DATABASES = {

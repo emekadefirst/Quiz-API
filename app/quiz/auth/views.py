@@ -13,13 +13,12 @@ class RegisterUser(APIView):
     def post(self, request):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
-            user = serializer.save()
-            if user:
+            try:
+                user = serializer.save()
                 return Response({'message': 'User created successfully'}, status=status.HTTP_201_CREATED)
-            else:
-                return Response({'message': 'User already exists'}, status=status.HTTP_400_BAD_REQUEST)
+            except:
+                return Response({'error': 'Failed to create user'}, status=status.HTTP_400_BAD_REQUEST)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
 """Login"""
 class LoginUser(APIView):
     serializer = UserLoginSerializer
