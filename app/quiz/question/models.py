@@ -7,7 +7,7 @@ class Question(models.Model):
     question = models.TextField(default=None)
 
     def __str__(self):
-        return f'{self.question} {self.quiz}'
+        return f'{self.question} {self.quiz.name}'
 
 
 
